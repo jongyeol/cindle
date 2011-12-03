@@ -2,8 +2,8 @@ var prj;
 var extension;
 function codeviewPreloadHook () {
     // load file
-    fileStr = window.Codeview.loadFile();
-    $("pre").text( "import android.webkit.WebView;" );
+    filestr = window.Codeview.loadfile();
+    $("pre").text( filestr );
 }
 
 function codeviewPostloadHook () {

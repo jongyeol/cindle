@@ -5,4 +5,4 @@ ant debug
 ~/bin/adb install ./bin/cindle-debug.apk
 adb logcat -c
 adb shell am start -n net.jong10.cindle/net.jong10.cindle.MainActivity
-adb logcat MY_TAG:* *:S
+adb logcat cindle:* *:S
