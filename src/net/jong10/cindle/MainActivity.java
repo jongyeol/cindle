@@ -17,11 +17,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 public class MainActivity extends Activity {
-    final Context myApp = this;
-    
     private String project = "test";
     private String filename = "FindResult.java";
     
+    final String TAG = "cindle";
+    final Context myApp = this;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +35,16 @@ public class MainActivity extends Activity {
         wv.getSettings().setJavaScriptEnabled(true);
         wv.loadUrl("file:///android_asset/www/test.html");
         wv.addJavascriptInterface( new CodeviewJavaScriptInterface(), "Codeview" );
+        
+        try {
+            CscopeUtils.initialize(this);
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            for (StackTraceElement s : e.getStackTrace())
+                Log.e(TAG, s.toString());
+        }
     }
-    
-    
+
     final class CodeviewJavaScriptInterface {
         private String currentHtmlText = null;
         
