@@ -2,8 +2,8 @@ var prj;
 var extension;
 function codeviewPreloadHook () {
     // load file
-    filestr = window.Codeview.loadfile();
-    $("pre").text( filestr );
+    // filestr = window.Codeview.loadfile();
+    // $("pre").text( filestr );
 }
 
 function codeviewPostloadHook () {
@@ -16,10 +16,13 @@ function codeviewPostloadHook () {
 
 function addAction() {
     labels = document.getElementsByTagName("code"); 
+    var varRegex = /[-_\w\d]+/ig;
     var line = "";
     var numOfMatch;
     for( var i = 0; i < labels.length; i++ ){
-        line = labels[i].innerHTML.replace("&nbsp;", " ").replace("&gt;","<").replace("&lt;",">");
+        line = labels[i].innerHTML.split("&nbsp;").join(" ");
+        line = line.split("&gt;").join("<");
+        line = line.split("&lt;").join(">");
         line = line.match(/[-_\d\w]+|[^-_\d\w]*/ig);
         numOfMatch=0;
         for ( var j in line ) { 
@@ -35,6 +38,6 @@ function addAction() {
 }
 
 function clickHook() {
-    window.Codeview.Clickhook( this.innerHTML );
-    // console.log("onclick");
+    // window.Codeview.Clickhook( this.innerHTML );
+    console.log("onclick");
 }
