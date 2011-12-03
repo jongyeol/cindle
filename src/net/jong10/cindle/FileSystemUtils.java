@@ -6,8 +6,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 
 public class FileSystemUtils {
+    private static String TAG = "cindle";
+
     public static boolean createFolderIfNotExists(String path) {
         File folder = new File(path);
         if (folder.exists())
@@ -32,10 +36,11 @@ public class FileSystemUtils {
 
     public static void setExecutableFile(String file) {
         File f = new File(file);
-        f.setExecutable(true);
+        boolean executabled = f.setExecutable(true);
+        Log.d(TAG, "executabled = " + executabled);
     }
 
     public static String getProjectPath(Context context, String project) {
-        return String.format("%s/%s", context.getExternalFilesDir(null), project);
+        return String.format("%s/%s", Environment.getExternalStorageDirectory().toString(), project);
     }
 }

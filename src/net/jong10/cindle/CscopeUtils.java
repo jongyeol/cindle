@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import android.content.Context;
+import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.util.Log;
 
@@ -23,11 +24,11 @@ public class CscopeUtils {
     }
 
     private boolean copyIfNotExistsCscopeBinary(Context context) throws IOException {
-        File file = context.getDir(CSCOPE_BIN, Context.MODE_PRIVATE);
-        if (file.exists())
-            return true;
+//        File file = context.getDir(CSCOPE_BIN, Context.MODE_PRIVATE);
+//        if (file.exists())
+//            return true;
 
-        FileSystemUtils.copyAssetToInternalStorage(context, CSCOPE_BIN, CSCOPE_BIN);
+        FileSystemUtils.copyAssetToInternalStorage(context, "bin/cscope", CSCOPE_BIN);
         return false;
     }
 
