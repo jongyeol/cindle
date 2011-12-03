@@ -17,13 +17,18 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 public class MainActivity extends Activity {
-final Context myApp = this;
+    final Context myApp = this;
+    
+    private String project = "test";
+    private String filename = "FindResult.java";
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("MY_TAG", "on create");
         setContentView(R.layout.main);
+        
+        // setup project, filename
         WebView wv = (WebView)this.findViewById(R.id.codeView);
         wv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         wv.getSettings().setJavaScriptEnabled(true);
@@ -59,8 +64,27 @@ final Context myApp = this;
         }
         
         public String loadfile() {
+            File sdcard = Environment.getExternalStorageDirectory();
+            //Get the text file
+            StringBuilder path = new StringBuilder();
+            path = path.append("cindle").append("/").append( project ).append("/").append( filename );
+            File file = new File(sdcard, path.toString() );
+            Log.i("MY_TAG", file.getPath());
             
-            return "import...";
+            //Read text from file
+            StringBuilder text = new StringBuilder();
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    text.append(line);
+                    text.append('\n');
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return text.toString();
         }
     }
 }
