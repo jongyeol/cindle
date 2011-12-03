@@ -1,0 +1,9 @@
+local.properties
+bin/*
+gen/*
+*.swp
+*~
+#*#
+.DS_Store
+._*
+
