@@ -16,8 +16,9 @@ import android.util.Log;
 import android.webkit.WebView;
 
 public class MainActivity extends Activity {
-final Context myApp = this;
-    
+    final String TAG = "net.jong10.MainActivity";
+    final Context myApp = this;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +28,16 @@ final Context myApp = this;
         wv.getSettings().setJavaScriptEnabled(true);
         wv.loadUrl("file:///android_asset/www/test.html");
         wv.addJavascriptInterface( new CodeviewJavaScriptInterface(), "Codeview" );
+        
+        try {
+            CscopeUtils.initialize(this);
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            for (StackTraceElement s : e.getStackTrace())
+                Log.e(TAG, s.toString());
+        }
     }
-    
-    
+
     final class CodeviewJavaScriptInterface {
         private String currentHtmlText = null;
         public void log( String string ){
