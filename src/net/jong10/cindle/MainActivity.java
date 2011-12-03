@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 public class MainActivity extends Activity {
@@ -25,6 +26,7 @@ public class MainActivity extends Activity {
         Log.i("MY_TAG", "on create");
         setContentView(R.layout.main);
         WebView wv = (WebView)this.findViewById(R.id.codeView);
+        wv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         wv.getSettings().setJavaScriptEnabled(true);
         wv.loadUrl("file:///android_asset/www/test.html");
         wv.addJavascriptInterface( new CodeviewJavaScriptInterface(), "Codeview" );
@@ -40,9 +42,11 @@ public class MainActivity extends Activity {
 
     final class CodeviewJavaScriptInterface {
         private String currentHtmlText = null;
+        
         public void log( String string ){
             Log.i("MY_TAG", string);
         }
+        
         public void Clickhook(String innerHTML) {
             String[] findTypeString = myApp.getResources().getStringArray(R.array.findBy);
             AlertDialog.Builder dialog = new AlertDialog.Builder(myApp);
@@ -62,21 +66,9 @@ public class MainActivity extends Activity {
             dialog.show();
         }
         
-        public String loadfile( String filename ) {
-            Log.i("MY_TAG", "called loadfile function" + filename);
-            File sdcard = Environment.getExternalStorageDirectory();
-            Log.i("MY_TAG", sdcard.toString());
-            try {
-                BufferedReader in = new BufferedReader(new FileReader( sdcard + "/cindle/code.cpp" ));
-                String s;
-                while ((s = in.readLine()) != null) {
-                    System.out.println(s);
-                }
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return filename;
+        public String loadfile() {
+            
+            return "import...";
         }
     }
 }
