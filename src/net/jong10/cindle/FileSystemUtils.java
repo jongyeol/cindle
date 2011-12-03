@@ -34,4 +34,8 @@ public class FileSystemUtils {
         File f = new File(file);
         f.setExecutable(true);
     }
+
+    public static String getProjectPath(Context context, String project) {
+        return String.format("%s/%s", context.getExternalFilesDir(null), project);
+    }
 }

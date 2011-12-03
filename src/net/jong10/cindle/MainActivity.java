@@ -13,38 +13,52 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
-    final String TAG = "net.jong10.MainActivity";
-    final Context myApp = this;
+    final private String TAG = "net.jong10.MainActivity";
+    final private Context myApp = this;
+    private CscopeUtils mCscopeUtils = null;
+    private String mProjectName = "xv6_test";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("MY_TAG", "on create");
+        Log.i(TAG, "on create");
         setContentView(R.layout.main);
         WebView wv = (WebView)this.findViewById(R.id.codeView);
         wv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         wv.getSettings().setJavaScriptEnabled(true);
         wv.loadUrl("file:///android_asset/www/test.html");
         wv.addJavascriptInterface( new CodeviewJavaScriptInterface(), "Codeview" );
-        
+
         try {
-            CscopeUtils.initialize(this);
+            mCscopeUtils = new CscopeUtils(this, mProjectName);
         } catch (IOException e) {
             Log.e(TAG, e.getMessage());
             for (StackTraceElement s : e.getStackTrace())
                 Log.e(TAG, s.toString());
         }
+        
+        // for test
+        Button testButton = (Button) findViewById(R.id.testButton);
+        testButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCscopeUtils.generateCscopeOut();
+            }
+        });
     }
 
     final class CodeviewJavaScriptInterface {
         private String currentHtmlText = null;
         
         public void log( String string ){
-            Log.i("MY_TAG", string);
+            Log.i(TAG, string);
         }
         
         public void Clickhook(String innerHTML) {
