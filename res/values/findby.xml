@@ -1,0 +1,12 @@
+<resources>
+	<string-array name="findBy">
+		<item>Find this symbol</item>
+		<item>Find global definition</item>
+		<item>Find called functions</item>
+		<item>Find functions calling a function</item>
+		<item>Find text string</item>
+		<item>Find egrep pattern</item>
+		<item>Find a file</item>
+		<item>Find files #including a file</item>
+	</string-array>
+</resources>
