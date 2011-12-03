@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
             StringBuilder path = new StringBuilder();
             path = path.append("cindle").append("/").append( project ).append("/").append( filename );
             File file = new File(sdcard, path.toString() );
-            Log.i("MY_TAG", file.getPath());
+            Log.i(TAG, file.getPath());
             
             //Read text from file
             StringBuilder text = new StringBuilder();
