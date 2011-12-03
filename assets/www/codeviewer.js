@@ -1,10 +1,17 @@
-function codeviewOnloadHook () {
-    addAction();
-    window.Codeview.log( window.Codeview.loadfile("filename") );
+var prj;
+var extension;
+function codeviewPreloadHook () {
+    // load file
+    fileStr = window.Codeview.loadFile();
+    $("pre").text( "import android.webkit.WebView;" );
 }
 
-function addCode() {
-
+function codeviewPostloadHook () {
+    var content = $("#content");
+    var contentContainer = $("#contentContainer");
+    SyntaxHighlighter.highlight();
+    addAction();
+    // load linnum
 }
 
 function addAction() {
