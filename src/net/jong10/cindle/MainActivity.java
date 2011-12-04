@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
         wv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         wv.getSettings().setJavaScriptEnabled(true);
         wv.loadUrl("file:///android_asset/www/test.html");
-        wv.addJavascriptInterface( new CodeviewJavaScriptInterface(), "Codeview" );
+        wv.addJavascriptInterface( new CodeviewJavaScriptInterface(), "Cindle" );
 
         try {
             mCscopeUtils = new CscopeUtils(this, mProject);
