@@ -34,26 +34,26 @@ public class CscopeUtils {
 
     public void generateCscopeOut() {
         Log.d(TAG, "generate cscope.out");
-        String cscopeBinary = String.format("%s/%s", mContext.getFilesDir(), CSCOPE_BIN);
-        executeCommand(String.format("%s -bkR %s", cscopeBinary, FileSystemUtils.getProjectPath(mContext, mProjectName)));
-        //Log.d(TAG, "find cscope.out");
-        //executeCommand
+        String cscope = mContext.getFileStreamPath(CSCOPE_BIN).toString();
+        String path = FileSystemUtils.getProjectPath(mContext, mProjectName);
+        //executeCommand(String.format("%s -bkR %s", cscope, path));
+        executeCommand(String.format("%s --help", cscope));
     }
 
     public void executeCommand(String cmd) {
         Log.d(TAG, "executeCommand: " + cmd);
-        
+
         Runtime run = Runtime.getRuntime();
         Process pr = null;
         try {
             pr = run.exec(cmd);
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
+            ExceptionUtils.printStackTrace(TAG, e);
         }
         try {
             pr.waitFor();
         } catch (InterruptedException e) {
-            Log.e(TAG, e.getMessage());
+            ExceptionUtils.printStackTrace(TAG, e);
         }
         BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
         String line = "";
@@ -63,7 +63,7 @@ public class CscopeUtils {
                 Log.d(TAG, line);
             }
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
+            ExceptionUtils.printStackTrace(TAG, e);
         }
     }
 }

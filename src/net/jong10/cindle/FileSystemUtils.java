@@ -32,12 +32,10 @@ public class FileSystemUtils {
 
         fos.close();
         is.close();
-    }
 
-    public static void setExecutableFile(String file) {
-        File f = new File(file);
-        boolean executabled = f.setExecutable(true);
-        Log.d(TAG, "executabled = " + executabled);
+        File target = context.getFileStreamPath(dest);
+        boolean executabled = target.setExecutable(true);
+        Log.d(TAG, "executabled: " + target.toString() + ": " + executabled);
     }
 
     public static String getProjectPath(Context context, String project) {

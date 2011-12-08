@@ -42,9 +42,7 @@ public class MainActivity extends Activity {
         try {
             mCscopeUtils = new CscopeUtils(this, mProject);
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
-            for (StackTraceElement s : e.getStackTrace())
-                Log.e(TAG, s.toString());
+            ExceptionUtils.printStackTrace(TAG, e);
         }
 
         // for test
@@ -102,7 +100,9 @@ public class MainActivity extends Activity {
                 }
             }
             catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e.getMessage());
+                for (StackTraceElement s : e.getStackTrace())
+                    Log.e(TAG, "    at " + s.toString());
             }
             return text.toString();
         }

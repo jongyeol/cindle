@@ -10,3 +10,6 @@ You can download and build with Apache Ant or Eclipse.
     cd cindle
     ant debug
 
+Coding convention
+http://www.oracle.com/technetwork/java/codeconv-138413.html
+
